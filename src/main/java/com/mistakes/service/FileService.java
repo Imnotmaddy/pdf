@@ -30,8 +30,9 @@ public class FileService {
                 user.setName(name);
                 user.setTelephoneNumber(reader.readLine());
                 user.setAddress(reader.readLine());
+                users.add(user);
             }
-            users.add(user);
+
         } catch (IOException ex) {
             logger.log(Level.SEVERE, ex.getMessage());
         }

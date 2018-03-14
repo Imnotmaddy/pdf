@@ -1,22 +1,44 @@
-<html xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
 <h3>Enter your requirements</h3>
-<form:form method="POST" action="/dataGenerator" modelAttribute="inputInformation">
+<form method="POST" action="#" th:action="@{/inputInformation}" th:object="${inputInformation}">
     <table>
         <tr>
-            <td><form:label path="numberOfRows">Number of Rows</form:label></td>
-            <td><form:input path="numberOfRows"/></td>
+            <td><label>Number of Rows</label></td>
+            <td><input type="number" min = "1" step = "1" th:field="*{numberRows}"/></td>
         </tr>
         <tr>
-            <td><form:label path="percentOfMistakes">Percent of Mistakes</form:label></td>
-            <td><form:input path="percentOfMistakes"/></td>
+            <td><label>Percent of mistakes</label></td>
+            <td><input type="number" min = "0" step = "1" th:field="*{percentOfMistakes}"/></td>
+        </tr>
+        <tr>
+            <td><label>Add symbols</label></td>
+            <td><input type="checkbox" th:field="*{mistakes[0]}" value="1"/></td>
+        </tr>
+        <tr>
+            <td><label>Delete symbols</label></td>
+            <td><input type="checkbox" th:field="*{mistakes[1]}" value="2"/></td>
+        </tr>
+        <tr>
+            <td><label>Replace symbols</label></td>
+            <td><input type="checkbox" th:field="*{mistakes[2]}" value="3"/></td>
+        </tr>
+        <tr>
+            <td>Select Country:</td>
+            <td>
+            <select th:field="*{region}">
+                <option value=""> -- </option>
+                <option value="Russia">Russia</option>
+                <option value="Belarus">Belarus</option>/>
+            </select>
+            </td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>
-</form:form>
+</form>
 </body>
 </html>

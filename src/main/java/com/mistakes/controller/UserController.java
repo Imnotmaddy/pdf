@@ -17,13 +17,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/inputInformation")
-    public String submit(@ModelAttribute("inputInformation")User user, Model model)
-    {
-        model.addAttribute("name", user.getName());
-        model.addAttribute("telephoneNumber",user.getTelephoneNumber());
-        model.addAttribute("address", user.getAddress());
-        return "MainView";
+    @PostMapping("/inputInformation")
+    public String submit(@ModelAttribute InputInformation inputInformation) {
+        userService.generateFileWithMistakes(inputInformation);
+        return "redirect:/greeting";
     }
 
     @GetMapping("/greeting")
@@ -31,9 +28,7 @@ public class UserController {
             @RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Model model
     ) {
-        userService.generateFileWithMistakes();
-
-
-        return "greeting";
+        model.addAttribute("inputInformation", new InputInformation());
+        return "MainView";
     }
 }

@@ -1,10 +1,12 @@
 package com.mistakes.model;
 
+import java.util.List;
+
 public class InputInformation {
     private long numberRows;
     private long percentOfMistakes;
     private String region;
-    private String [] mistakes;
+    private List<String> mistakes;
 
     public long getNumberRows() {
         return numberRows;
@@ -30,11 +32,11 @@ public class InputInformation {
         this.region = region;
     }
 
-    public String[] getMistakes() {
+    public List<String> getMistakes() {
         return mistakes;
     }
 
-    public void setMistakes(String[] mistakes) {
+    public void setMistakes(List<String> mistakes) {
         this.mistakes = mistakes;
     }
 }

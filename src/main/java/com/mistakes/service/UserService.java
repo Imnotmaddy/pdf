@@ -1,5 +1,6 @@
 package com.mistakes.service;
 
+import com.mistakes.model.InputInformation;
 import com.mistakes.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class UserService {
         users = fileService.readUsers();
     }
 
-    public void generateFileWithMistakes() {
+
+    public void generateFileWithMistakes(InputInformation inputInformation) {
         //generate list of x users from req list
         //make mistakes according to %
         //create pdf or doc and return
