@@ -29,8 +29,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
+    compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.3.1'
     testCompile("junit:junit")
-    // https://mvnrepository.com/artifact/taglibs/standard
-    compile group: 'taglibs', name: 'standard', version: '1.1.2'
-
 }
