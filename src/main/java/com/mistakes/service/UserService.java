@@ -1,5 +1,6 @@
 package com.mistakes.service;
 
+import com.itextpdf.text.DocumentException;
 import com.mistakes.model.InputInformation;
 import com.mistakes.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserService {
     private List<User> users;
 
     @PostConstruct
-    private void initUsersCache() {
+    private void initUsersCache() throws DocumentException{
         users = fileService.readUsers();
     }
 
