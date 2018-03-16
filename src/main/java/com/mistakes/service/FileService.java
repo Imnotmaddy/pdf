@@ -30,7 +30,6 @@ public class FileService {
                 user.setAddress(reader.readLine());
                 users.add(user);
             }
-        writeUsersCSV(users);
         } catch (IOException ex) {
             logger.log(Level.SEVERE, ex.getMessage());
         }
@@ -39,7 +38,7 @@ public class FileService {
 
     public void writeUsersCSV(List<User> users){
         try {
-           BufferedWriter writer = new BufferedWriter(new FileWriter("e:\\EnglishFixedNames.csv"));
+           BufferedWriter writer = new BufferedWriter(new FileWriter("EnglishFixedNames.csv"));
             char c = '"';
 
             for (User user:users) {

@@ -20,7 +20,7 @@ public class FileDownloadController {
 
     private static final int BUFFER_SIZE = 4096;
 
-    private String filePath = "e:\\EnglishNames.txt";
+    private String filePath = "EnglishFixedNames.csv";
 
         @GetMapping("/downloadCSV")
             public void doDownload(HttpServletRequest request,

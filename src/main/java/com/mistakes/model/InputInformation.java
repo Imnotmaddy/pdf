@@ -7,6 +7,15 @@ public class InputInformation {
     private long percentOfMistakes;
     private String region;
     private List<String> mistakes;
+    private String documentType;
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
 
     public long getNumberRows() {
         return numberRows;
