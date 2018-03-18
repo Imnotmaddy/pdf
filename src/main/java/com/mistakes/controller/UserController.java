@@ -1,5 +1,6 @@
 package com.mistakes.controller;
 
+import com.itextpdf.text.DocumentException;
 import com.mistakes.model.InputInformation;
 import com.mistakes.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.mistakes.service.UserService;
 
+import java.io.IOException;
+
 @Controller
 public class UserController {
 
@@ -18,16 +21,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/inputInformation")
-    public String submit(@ModelAttribute InputInformation inputInformation) {
+    public String submit(@ModelAttribute InputInformation inputInformation) throws DocumentException {
         userService.generateFileWithMistakes(inputInformation);
         return "redirect:/greeting";
     }
 
     @GetMapping("/greeting")
-    public String greeting(
-            @RequestParam(name = "name", required = false, defaultValue = "World") String name,
-            Model model
-    ) {
+    public String greeting(Model model) {
         model.addAttribute("inputInformation", new InputInformation());
         return "MainView";
     }

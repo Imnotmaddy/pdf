@@ -29,10 +29,10 @@ public class FileService {
     }
 
 
-    public List<User> readUsers() throws DocumentException {
+    public List<User> readUsers(String fileName) throws DocumentException {
         List<User> users = new ArrayList<>();
         try {
-            File file = ResourceUtils.getFile("classpath:BelorussianNames.txt");
+            File file = ResourceUtils.getFile("classpath:" + fileName);
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
             String name;
@@ -49,9 +49,9 @@ public class FileService {
         return users;
     }
 
-    public void writeUsersCSV(List<User> users) {
+    public void writeUsersCSV(List<User> users, String fileName) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("EnglishFixedNames.csv"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName +".csv"));
             char c = '"';
             char COMMA = ',';
             for (User user : users) {
@@ -68,11 +68,11 @@ public class FileService {
         }
     }
 
-    public void writeUsersPDF(List<User> users)
+    public void writeUsersPDF(List<User> users, String fileName)
             throws DocumentException, IOException {
 
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("EnglishFixedNames.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(fileName+".pdf"));
         document.open();
         for (User user : users) {
             document.add(new Paragraph(user.getName(), font));
