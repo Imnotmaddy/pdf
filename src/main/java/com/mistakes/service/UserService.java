@@ -1,14 +1,19 @@
 package com.mistakes.service;
 
 import com.itextpdf.text.DocumentException;
-import com.mistakes.controller.FileDownloadController;
 import com.mistakes.model.InputInformation;
 import com.mistakes.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -99,15 +104,67 @@ public class UserService {
             usersWithMistakes.add(changed);
         }
         try {
-            if (inputInformation.getDocumentType().equals("PDF")) {
+            if (inputInformation.getDocumentType().equals(".pdf")) {
                 fileService.writeUsersPDF(usersWithMistakes, filename);
             }
-            if (inputInformation.getDocumentType().equals("CSV")) {
+            if (inputInformation.getDocumentType().equals(".csv")) {
                 fileService.writeUsersCSV(usersWithMistakes, filename);
             }
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
+    }
+
+    public void downloadFile(HttpServletRequest request,
+                             HttpServletResponse response, String fileName, String extenstion) throws IOException {
+        int BUFFER_SIZE = 4096;
+        String filePath = "";
+        if (fileName.equals("USA")) {
+            filePath = "EnglishNamesWithMistakes" + extenstion;
+        }
+        if (fileName.equals("Russia")) {
+            filePath = "RussianNamesWithMistakes" + extenstion;
+        }
+        if (fileName.equals("Belarus")) {
+            filePath = "BelorussianNamesWithMistakes" + extenstion;
+        }
+        ServletContext context = request.getServletContext();
+
+        File downloadFile = new File(filePath);
+        FileInputStream inputStream = new FileInputStream(downloadFile);
+
+        // get MIME type of the file
+        String mimeType = context.getMimeType(filePath);
+        if (mimeType == null) {
+            // set to binary type if MIME mapping not found
+            mimeType = "application/octet-stream";
+        }
+        System.out.println("MIME type: " + mimeType);
+
+        // set content attributes for the response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
+
+        // set headers for the response
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                downloadFile.getName());
+        response.setHeader(headerKey, headerValue);
+
+        // get output stream of the response
+        OutputStream outStream = response.getOutputStream();
+
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int bytesRead = -1;
+
+        // write bytes read from the input stream into the output stream
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+
+        inputStream.close();
+        outStream.close();
+
     }
 
     public String addSymbolMistake(String value, String isRequired) {

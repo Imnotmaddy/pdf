@@ -1,44 +1,78 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Data Generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width = device - width, intitial-scale = 1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<h3>Enter your requirements</h3>
-<form method="POST" action="#" th:action="@{/inputInformation}" th:object="${inputInformation}">
-    <table>
-        <tr>
-            <td><label>Number of Rows</label></td>
-            <td><input type="number" min = "1" step = "1" th:field="*{numberRows}"/></td>
-        </tr>
-        <tr>
-            <td><label>Percent of mistakes</label></td>
-            <td><input type="number" min = "0" step = "1" th:field="*{percentOfMistakes}"/></td>
-        </tr>
-        <tr>
-            <td><label>Add symbols</label></td>
-            <td><input type="checkbox" th:field="*{mistakes[0]}" value="1"/></td>
-        </tr>
-        <tr>
-            <td><label>Delete symbols</label></td>
-            <td><input type="checkbox" th:field="*{mistakes[1]}" value="2"/></td>
-        </tr>
-        <tr>
-            <td><label>Replace symbols</label></td>
-            <td><input type="checkbox" th:field="*{mistakes[2]}" value="3"/></td>
-        </tr>
-        <tr>
-            <td>Select Country:</td>
-            <td>
-            <select th:field="*{region}">
-                <option value=""> -- </option>
-                <option value="Russia">Russia</option>
-                <option value="Belarus">Belarus</option>/>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Submit"/></td>
-        </tr>
-    </table>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm" style="padding-top:15px;">
+            <h3>Enter your requirements</h3>
+            <form method="POST" action="#" th:action="@{/inputInformation}" th:object="${inputInformation}">
+                <div class="container">
+                    <div class="form-group">
+                        <label>Number of Rows</label>
+                        <input class="form-control" type="number" min="1" step="1" th:field="*{numberRows}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Percent of mistakes</label>
+                        <input class="form-control" type="number" min="0" step="1" th:field="*{percentOfMistakes}"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check1" th:field="*{mistakes[0]}"
+                                   value="1"/>
+                            <label class="form-check-label" for="check1">Add symbol</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check2" th:field="*{mistakes[1]}"
+                                   value="2"/>
+                            <label class="form-check-label" for="check2">Delete symbol</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check3" th:field="*{mistakes[2]}"
+                                   value="3"/>
+                            <label class="form-check-label" for="check3">Replace symbol</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Select Country:
+
+                        <select class="form-control" th:field="*{region}">
+                            <option value="Russia">Russia</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="USA">USA</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        Select document type
+
+                        <select class="form-control" th:field="*{documentType}">
+                            <option value=".pdf">.pdf</option>
+                            <option value=".csv">.csv</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary btn-md" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+</div>
 </body>
 </html>

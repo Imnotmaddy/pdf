@@ -1,0 +1,10 @@
+.main {
+}
+body {
+background-color: #333;
+}
+.main-container {
+  display: flex;
+  justify-content: center;
+  width: 350px;
+}

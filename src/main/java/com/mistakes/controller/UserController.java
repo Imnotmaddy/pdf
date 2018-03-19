@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.mistakes.service.UserService;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 @Controller
 public class UserController {
@@ -21,10 +27,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/inputInformation")
-    public String submit(@ModelAttribute InputInformation inputInformation) throws DocumentException {
+    public void submit(@ModelAttribute InputInformation inputInformation,
+                         HttpServletRequest request,
+                         HttpServletResponse response) throws DocumentException, IOException {
+
         userService.generateFileWithMistakes(inputInformation);
-        return "redirect:/greeting";
-    }
+        userService.downloadFile(request,response,inputInformation.getRegion(), inputInformation.getDocumentType());
+        }
 
     @GetMapping("/greeting")
     public String greeting(Model model) {
