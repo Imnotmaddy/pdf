@@ -1,7 +1,7 @@
 .main {
 }
 body {
-background-color: #333;
+background-color: red;
 }
 .main-container {
   display: flex;
